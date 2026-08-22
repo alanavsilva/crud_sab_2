@@ -25,7 +25,18 @@ if(empty(4id_usuario) || empty(descricao) || empty(setor) || empty(prioridade)) 
     $mensagem = "Todos os campos são obrigatórios.";
 }else {
     if ($edicao) {
-        
+        $id = $_post['id'];
+        if (atualizarTarefa($id, $id_usuario, $descricao, $setor, $prioridade)) {
+            header("Location: index.php?mensagem=Tarefa atualizada com sucesso!&tipo=sucess");
+            exit;
+        }else {
+            if (adicionarTarefa($id_usuario, $descricao, $setor, $prioridade)) {
+            header("Location: cadastro_tarefa.php?mensagem=Tarefa cadastrada com sucesso!&tipo=sucess");
+            exit;
+            }else{
+                $mensagem = "Erro ao cadastrar a tarefa!";
+            }
+        }
     }
 }
 
